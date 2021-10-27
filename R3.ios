@@ -1,0 +1,138 @@
+!! NETLAB+ saved configuration: time="2021-10-27 11:22:23 UTC" device="R3" hardware="C2900-S00" reservation="14279"
+!
+! Last configuration change at 10:10:58 UTC Wed Oct 27 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+! card type command needed for slot/vwic-slot 0/2
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+hw-module pvdm 0/0
+!
+!
+!
+vtp domain cotton.cti.pl
+vtp mode transparent
+!
+redundancy
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description Siec lokalna PC3
+ ip address 192.168.3.1 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ description Siec R3 - R1
+ ip address 10.0.13.3 255.255.255.248
+ clock rate 2000000
+ no shutdown
+!
+interface Serial0/0/1
+ description Siec R3 - R2
+ ip address 10.0.23.3 255.255.255.248
+ no shutdown
+!
+interface Serial0/1/0
+ description Siec R3 - R4 Gora
+ ip address 10.0.34.3 255.255.255.248
+ clock rate 2000000
+ no shutdown
+!
+interface Serial0/1/1
+ description Siec R3 - R4 Dol
+ ip address 10.0.43.3 255.255.255.248
+ clock rate 2000000
+ no shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 10.0.12.0 255.255.255.252 Serial0/0/1 permanent
+ip route 192.168.1.0 255.255.255.248 Serial0/0/0 permanent
+ip route 192.168.2.0 255.255.255.252 Serial0/0/1 permanent
+ip route 192.168.4.0 255.255.255.252 Serial0/1/0 permanent
+ip route 192.168.4.0 255.255.255.252 Serial0/1/1 permanent
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input none
+!
+scheduler allocate 20000 1000
+!
+end

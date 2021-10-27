@@ -1,0 +1,157 @@
+!! NETLAB+ saved configuration: time="2021-10-27 11:22:27 UTC" device="R1" hardware="C2900-S00" reservation="14279"
+!
+! Last configuration change at 10:28:01 UTC Wed Oct 27 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+! card type command needed for slot/vwic-slot 0/2
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+hw-module pvdm 0/0
+!
+hw-module sm 1
+!
+!
+!
+vtp domain cotton.cti.pl
+vtp mode transparent
+!
+redundancy
+!
+!
+!
+!
+!
+vlan 2
+ name vlan2
+!
+vlan 3-4,10,103,111 
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description Siec lokalna PC1a PC1b
+ ip address 192.168.1.1 255.255.255.248
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ description Siec R1 - R2
+ ip address 10.0.12.1 255.255.255.252
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/0/1
+ description Siec R1 - R3
+ ip address 10.0.13.1 255.255.255.248
+ no shutdown
+!
+interface SM1/0
+ no ip address
+ shutdown
+ !Application: CUE Running on SM
+!
+interface SM1/1
+ no ip address
+ no shutdown
+!
+interface Vlan1
+ no ip address
+ no shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 10.0.23.0 255.255.255.248 10.0.13.3 name "Do R2 przez R3"
+ip route 10.0.23.0 255.255.255.248 10.0.12.2 name "Do R3 przez R2"
+!
+ip route 192.168.2.0 255.255.255.252 10.0.12.2 1 name "Do PC2"
+ip route 192.168.3.0 255.255.255.252 10.0.13.3 1 name "Do PC3"
+ip route 192.168.2.0 255.255.255.252 10.0.13.3 2 name "Do PC2 Przez R3"
+ip route 192.168.3.0 255.255.255.252 10.0.12.2 2 name "Do PC3 Przez_R2"
+ip route 192.168.4.0 255.255.255.252 10.0.13.3 2 name "Do PC4 Przez_R3"
+ip route 192.168.4.0 255.255.255.252 10.0.12.2 3 name "Do PC4 Przez R2 R3"
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line 67
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input none
+!
+scheduler allocate 20000 1000
+!
+end
