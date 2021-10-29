@@ -107,11 +107,25 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
-ip route 10.0.12.0 255.255.255.252 Serial0/0/1 permanent
-ip route 192.168.1.0 255.255.255.248 Serial0/0/0 permanent
-ip route 192.168.2.0 255.255.255.252 Serial0/0/1 permanent
-ip route 192.168.4.0 255.255.255.252 Serial0/1/0 permanent
-ip route 192.168.4.0 255.255.255.252 Serial0/1/1 permanent
+! ROUTERY
+ip route 10.0.12.0 255.255.255.252 10.0.13.1 2
+! Do R2 przez R1
+ip route 10.0.12.0 255.255.255.252 10.0.23.2 2
+! Do R1 przez R2
+!
+! PECETY
+ip route 192.168.1.0 255.255.255.248 10.0.13.1 1
+! Do PC1 przez R1
+ip route 192.168.1.0 255.255.255.248 10.0.23.2 2
+! Do PC1 przez R2
+ip route 192.168.2.0 255.255.255.252 10.0.23.2 1
+! Do PC2 przez R2
+ip route 192.168.2.0 255.255.255.252 10.0.13.1 2
+! Do PC2 przez R1
+ip route 192.168.4.0 255.255.255.252 10.0.34.4 1
+! Do PC4 przez R4 Gora
+ip route 192.168.4.0 255.255.255.252 10.0.43.4 1
+! Do PC4 przez R4 Dol
 !
 !
 !

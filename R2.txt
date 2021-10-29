@@ -95,15 +95,32 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
-ip route 10.0.13.0 255.255.255.248 Serial0/0/1 2 name "Do R1 przez R3"
-ip route 10.0.13.0 255.255.255.248 10.0.23.3 2  name "Do R1 przez R3"
+!Routerki
+ip route 10.0.13.0 255.255.255.248 10.0.23.3 2  
+! Do R1 przez R3
+ip route 10.0.13.0 255.255.255.248 10.0.12.1 2  
+! Do R3 przez R1
+ip route 10.0.34.0 255.255.255.248 10.0.12.1 3  
+! Do R4 Gora przez R1
+ip route 10.0.43.0 255.255.255.248 10.0.12.1 3
+! Do R4 Dol przez R1
+ip route 10.0.34.0 255.255.255.248 10.0.23.3 2  
+! Do R4 Gora przez R3
+ip route 10.0.43.0 255.255.255.248 10.0.23.3 2
+! Do R4 Dol przez R3
 !
-ip route 192.168.1.0 255.255.255.248 Serial0/0/0 1 name "Do PC1 przez R1"
-ip route 192.168.1.0 255.255.255.248 Serial0/0/1 2 name "Do PC1 przez R3"
-ip route 192.168.3.0 255.255.255.252 Serial0/0/1 1 name "Do PC3 przez R3"
-ip route 192.168.3.0 255.255.255.252 Serial0/0/0 2 name "Do PC3 przez R1"
-ip route 192.168.4.0 255.255.255.252 Serial0/0/1 2 name "Do PC4 przez R3"
-ip route 192.168.4.0 255.255.255.252 Serial0/0/0 3 name "Do PC4 przez R1"
+ip route 192.168.1.0 255.255.255.248 10.0.12.1 1 
+! Do PC1 przez R1
+ip route 192.168.1.0 255.255.255.248 10.0.23.3 2 
+! Do PC1 przez R3
+ip route 192.168.3.0 255.255.255.252 10.0.23.3 1 
+! Do PC3 przez R3
+ip route 192.168.3.0 255.255.255.252 10.0.12.1 2 
+! Do PC3 przez R1
+ip route 192.168.4.0 255.255.255.252 10.0.23.3 2 
+! Do PC4 przez R3
+ip route 192.168.4.0 255.255.255.252 10.0.12.1 3 
+! Do PC4 przez R1
 !
 !
 !

@@ -89,7 +89,7 @@ interface GigabitEthernet0/2
 interface Serial0/0/0
  description Siec R1 - R2
  ip address 10.0.12.1 255.255.255.252
- shutdown
+ no shutdown
  clock rate 2000000
 !
 interface Serial0/0/1
@@ -115,15 +115,33 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
-ip route 10.0.23.0 255.255.255.248 10.0.13.3 name "Do R2 przez R3"
-ip route 10.0.23.0 255.255.255.248 10.0.12.2 name "Do R3 przez R2"
+! Routery
+ip route 10.0.23.0 255.255.255.248 10.0.13.3 2
+! Do R2 przez R3
+ip route 10.0.23.0 255.255.255.248 10.0.12.2 2
+! Do R3 przez R2
+ip route 10.0.34.0 255.255.255.248 10.0.13.3 2  
+! Do R4 Gora przez R3
+ip route 10.0.43.0 255.255.255.248 10.0.13.3 2
+! Do R4 Dol przez R3
+ip route 10.0.34.0 255.255.255.248 10.0.12.2 3  
+! Do R4 Gora przez R2
+ip route 10.0.43.0 255.255.255.248 10.0.12.2 3
+! Do R4 Dol przez R2
 !
-ip route 192.168.2.0 255.255.255.252 10.0.12.2 1 name "Do PC2"
-ip route 192.168.3.0 255.255.255.252 10.0.13.3 1 name "Do PC3"
-ip route 192.168.2.0 255.255.255.252 10.0.13.3 2 name "Do PC2 Przez R3"
-ip route 192.168.3.0 255.255.255.252 10.0.12.2 2 name "Do PC3 Przez_R2"
-ip route 192.168.4.0 255.255.255.252 10.0.13.3 2 name "Do PC4 Przez_R3"
-ip route 192.168.4.0 255.255.255.252 10.0.12.2 3 name "Do PC4 Przez R2 R3"
+! PCETY
+ip route 192.168.2.0 255.255.255.252 10.0.12.2 1 
+! Do PC2
+ip route 192.168.3.0 255.255.255.252 10.0.13.3 1
+! Do PC3
+ip route 192.168.2.0 255.255.255.252 10.0.13.3 2
+! Do PC2 Przez R3
+ip route 192.168.3.0 255.255.255.252 10.0.12.2 2
+! Do PC3 Przez_R2
+ip route 192.168.4.0 255.255.255.252 10.0.13.3 2 
+! Do PC4 Przez_R3
+ip route 192.168.4.0 255.255.255.252 10.0.12.2 3 
+! Do PC4 Przez R2 R3
 !
 !
 !
